@@ -1,4 +1,5 @@
 import struct
+import sys
 
 
 def f16_bytes_to_float(b):
@@ -10,7 +11,11 @@ def f16_bytes_to_float(b):
     Args:
         b (bytes): Half-precision bytes
     """
-    b += b'\x00' * 2  # Pad to 32-bit boundary
+    # Pad to 32-bit boundary
+    if sys.byteorder == 'little':
+        b += b'\x00' * 2  
+    else:
+        b = b'\x00' * 2 + b
     i = struct.unpack('<I', b)[0]
 
     t1 = i & 0x7fff  # Non-sign bits
