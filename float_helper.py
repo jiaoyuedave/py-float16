@@ -50,7 +50,7 @@ def float_to_f16_bytes(f):
     t3 = i & 0x7f800000  # Exponent bits
 
     t1 >>= 13  # Align mantissa on MSB
-    t2 >> 16  # Shift sign bit into position
+    t2 >>= 16  # Shift sign bit into position
 
     t1 -= 0x1c000  # Adjust bias
 
@@ -76,3 +76,7 @@ if __name__ == '__main__':
     test(10.0)
     test(100.0)
     test(1000.0)
+
+    test(-1.5)
+    test(-100.0)
+    test(-1000.0)
